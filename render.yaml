@@ -1,0 +1,25 @@
+# One blueprint for both halves: the static board and the WebSocket relay.
+# Render → New → Blueprint → pick this repository; nothing else to configure.
+services:
+  - type: web
+    name: board-live-relay
+    runtime: node
+    plan: free
+    buildCommand: npm ci --omit=dev
+    startCommand: node server/server.mjs
+    healthCheckPath: /
+    envVars:
+      - key: NODE_VERSION
+        value: "24"
+
+  - type: web
+    name: board-live
+    runtime: static
+    buildCommand: npm ci && npm run build
+    staticPublishPath: dist
+    envVars:
+      - key: VITE_BOARD_SERVER
+        fromService:
+          type: web
+          name: board-live-relay
+          envVarKey: RENDER_EXTERNAL_URL

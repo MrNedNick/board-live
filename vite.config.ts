@@ -1,8 +1,14 @@
 import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react'
-import { defineConfig } from 'vite'
+import { defineConfig } from 'vitest/config'
 
 // https://vite.dev/config/
 export default defineConfig({
+  // GitHub Pages serves the demo from /board-live/; everything else from /.
+  base: process.env.GITHUB_PAGES === 'true' ? '/board-live/' : '/',
   plugins: [react(), tailwindcss()],
+  test: {
+    environment: 'jsdom',
+    include: ['src/**/*.test.{ts,tsx}'],
+  },
 })

@@ -101,10 +101,10 @@ export function CardItem({
       />
       <div className="mt-1 flex items-center gap-1 px-1 text-xs text-text-muted">
         <span className="mr-auto truncate">{card.createdBy}</span>
-        <IconButton label={`Move “${card.title || 'Untitled card'}” to ${left?.title}`} disabled={!left} onClick={() => left && onMove(left.id)}>
+        <IconButton label={left ? `Move “${card.title || 'Untitled card'}” to ${left.title}` : 'Already in the first column'} disabled={!left} onClick={() => left && onMove(left.id)}>
           <path d="M10 4 6 8l4 4" />
         </IconButton>
-        <IconButton label={`Move “${card.title || 'Untitled card'}” to ${right?.title}`} disabled={!right} onClick={() => right && onMove(right.id)}>
+        <IconButton label={right ? `Move “${card.title || 'Untitled card'}” to ${right.title}` : 'Already in the last column'} disabled={!right} onClick={() => right && onMove(right.id)}>
           <path d="m6 4 4 4-4 4" />
         </IconButton>
         <IconButton label={`Delete “${card.title || 'Untitled card'}”`} onClick={onDelete} danger>

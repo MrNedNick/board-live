@@ -71,11 +71,20 @@ function App() {
             <h1 className="text-3xl font-semibold tracking-tight text-balance sm:text-4xl">
               A task board that everyone edits at once
             </h1>
-            <p className="text-base text-text-muted">
-              Open this page in a second tab, or send the link to someone, then move a card: it moves for
-              everybody within a moment. Switch to offline, keep working, and your changes catch up when you
-              come back.
-            </p>
+            {serverUrl ? (
+              <p className="text-base text-text-muted">
+                Open this page in a second tab, or send the link to someone, then move a card: it moves for
+                everybody within a moment. Switch to offline, keep working, and your changes catch up when you
+                come back.
+              </p>
+            ) : (
+              <p className="text-base text-text-muted">
+                <strong className="font-semibold text-text">Open this board in a second tab — and move cards.</strong>{' '}
+                Both tabs change together, with faces and cursors for each. Switch one to offline, edit the same
+                card in both, and watch them merge. This demo syncs the tabs of one browser; between devices
+                the same board talks to a small sync server.
+              </p>
+            )}
             <div className="flex flex-wrap gap-3">
               <a
                 href={location.href}
@@ -85,9 +94,11 @@ function App() {
               >
                 Open a second tab
               </a>
-              <Button variant="outline" onClick={copyLink}>
-                {copied ? 'Link copied' : 'Copy link to this board'}
-              </Button>
+              {serverUrl && (
+                <Button variant="outline" onClick={copyLink}>
+                  {copied ? 'Link copied' : 'Copy link to this board'}
+                </Button>
+              )}
             </div>
           </section>
 

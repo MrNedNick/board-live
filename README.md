@@ -2,6 +2,8 @@
 
 A task board that everyone edits at once. Open it in two tabs, or send the link to someone: move a card and it moves for everybody within a moment. Switch one side offline, keep working in both, and every change catches up when it comes back — nothing overwrites anything.
 
+**[Try it live](https://mrnednick.github.io/board-live/)** — open the board in a second tab and move a card. The live demo has no sync server, so it syncs the tabs of one browser (presence, cursors and offline merge included). Between devices the same board needs the small relay in [`server/`](server/server.mjs) running somewhere — see [Deploy](#deploy).
+
 ![Two people on one board: a card held by the other person, their named cursor, the history of who did what](docs/board-light.png)
 
 <details>
@@ -64,6 +66,6 @@ The tests open two connections to one room the way two tabs do, take one offline
 
 ## Deploy
 
-The board is static; the relay is a small Node process that needs a host that keeps WebSockets open. [`render.yaml`](render.yaml) describes both: on Render, **New → Blueprint** and pick this repository — the static site is built with the relay's address filled in. Without a relay the site still works, with sync between the tabs of one browser.
+GitHub Pages hosts the static board (CI builds it on every push to `main`): that is the live demo, with sync between the tabs of one browser. The relay is a small Node process that needs a host that keeps WebSockets open. [`render.yaml`](render.yaml) describes both: on Render, **New → Blueprint** and pick this repository — the static site is built with the relay's address filled in. Without a relay the site still works, with sync between the tabs of one browser.
 
 Lighthouse on the production build: 100 accessibility, 100 best practices, 100 SEO, 89 performance.
